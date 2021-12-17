@@ -1,7 +1,13 @@
 ---
 title: "R for Data Science"
+author: "Osindi Bonface"
+date: "12/15/2021"
 output: html_document
 ---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
 
  First you will learn to import your data into R.
 
