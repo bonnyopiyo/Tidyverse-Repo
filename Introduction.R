@@ -1,92 +1,91 @@
-## ```R for Data Science```
+---
+title: "R for Data Science"
+output: html_document
+---
 
-## First you will learn to import your data into R.
-## Once you’ve imported your data, it is a good idea to tidy it up.
-## Once you have tidy data, a common first step is to transform it.
-## Together, tidying and transforming are called wrangling, because getting your
-## data in a form that’s natural to work with often feels like a fight
+First you will learn to import your data into R.
 
-## A good visualisation will show you things that you did not expect, 
-## or raise new questions about the data.
+Once you’ve imported your data, it is a good idea to tidy it up.
 
-## Once you have made your questions sufficiently precise, 
-## you can use a model to answer them.
+Once you have tidy data, a common first step is to transform it.
 
-## The last step of data science is communication, an absolutely critical part of
-## any data analysis project.
+Together, tidying and transforming are called wrangling, because getting your data in a form that’s natural to work with often feels like a fight
 
-## Surrounding all these tools is programming. Programming is a cross-cutting tool 
-## that you use in every part of the project.
+A good visualisation will show you things that you did not expect,or raise new questions about the data.
 
-## The Tidyverse Package
-## You can install the complete tidyverse with the following code:
+Once you have made your questions sufficiently precise, you can use a model to answer them.
+
+The last step of data science is communication, an absolutely critical part of any data analysis project.
+
+Surrounding all these tools is programming. 
+
+Programming is a cross-cutting tool that you use in every part of the project.
+
+#### The Tidyverse Package
+You can install the complete tidyverse with the following code:
+```{r}
 install.packages("tidyverse")
+```
 
-## We’ll use three other data packages from outside the tidyverse:
+We’ll use three other data packages from outside the tidyverse:
+
+```{r}
 install.packages(c("nycflights13", "gapminder", "Lahman"))
+```
+These packages provide data on airline flights, world development, and baseball that we’ll use to illustrate key data science ideas.
 
-## These packages provide data on airline flights, world development, and
-## baseball that we’ll use to illustrate key data science ideas.
+#### Data Visualisation with ggplot2.
+It implements the grammar of graphics
 
-################## Data Visualisation with ggplot2. ##########
-############ It implements the grammar of graphics ###########
-
-## Load the package
+Load the package
+```{r}
 library(tidyverse)
+```
 
-## You only need to install the packae once and reload it every other time
-## you want to use it.
+You only need to install the package once and reload it every other time you want to use it.
 
-## Let’s use our first graph to answer a question: Do cars with big engines use
-## more fuel than cars with small engines?
+Let’s use our first graph to answer a question: 
+Do cars with big engines use more fuel than cars with small engines?
 
-## We will make use of the mpg data frame
-mpg
-
-## Among the variables in mpg are:
+We will make use of the mpg data frame mpg. Among the variables in mpg are:
   
-#  displ - a car’s engine size in litres.
-#  hwy   - a car’s fuel efficiency on the highway in miles per gallon (mpg). 
-#  A car with a low fuel efficiency consumes more fuel than a car with a high 
-#  fuel efficiency when they travel the same distance.
+displ - a car’s engine size in litres.
+hwy   - a car’s fuel efficiency on the highway in miles per gallon (mpg). 
+A car with a low fuel efficiency consumes more fuel than a car with a highfuel efficiency when they travel the same distance.
 
-## To learn more about mpg, open its help page by running ?mpg.
+To learn more about mpg, open its help page by running ?mpg.
+
+```{r}
 ?mpg
+```
 
-## Creating a ggplot
-## We will plot mpg, where we will run the following code to put the
-## displ on the x-axis and hwy on the y-axis:
+#### Creating a ggplot
+We will plot mpg, where we will run the following code to put the displ on the x-axis and hwy on the y-axis:
 
+```{r}
 ggplot(data = mpg)+ #Creates an empty graph
   geom_point(mapping = aes(x = displ, y = hwy)) #scatter plot
+```
+This shows a negative relationship. The plot shows a negative relationship between engine size (displ) and fuel efficiency (hwy). In other words, cars with big engines use more fuel. 
 
-#This shows a negative relationship
-## The plot shows a negative relationship between engine size (displ)
-## and fuel efficiency (hwy). In other words, cars with big engines use
-## more fuel. 
+You can convey information about your data by mapping the aesthetics in your plot to the variables in your data set. You can map the colors of your points to the class variable to reveal the class of each car.
 
-### You can convey information about your data by mapping the aesthetics
-### in your plot to the variables in your dataset. 
-### You can map the colors of your points to the class
-### variable to reveal the class of each car.
-
+```{r}
 ggplot(data = mpg)+ #Creates an empty graph
   geom_point(mapping = aes(x = displ, y = hwy, size = class)) #scatter plot
+```
+In this case, the exact size of each point would reveal its class affiliation. 
+We get a warning here, because mapping an unordered variable (class) to an ordered aesthetic (size) is not a good idea.
 
-## In this case, the exact size of each point would reveal its class affiliation. 
-## We get a warning here, because mapping an unordered variable (class) to an ordered
-## aesthetic (size) is not a good idea.
-
-## Instead we could have mapped class to the alpha aesthetic, which controls the 
-## transparency of the points, or to the shape aesthetic, which controls the shape of the points.
-
-# Left
+Instead we could have mapped class to the alpha aesthetic, which controls the transparency of the points, or to the shape aesthetic, which controls the shape of the points.
+```{r}
+#Left
 ggplot(data = mpg) + 
   geom_point(mapping = aes(x = displ, y = hwy, alpha = class))
 
 # Right
 ggplot(data = mpg) + 
   geom_point(mapping = aes(x = displ, y = hwy, shape = class))
-
-## By default, additional groups will go unplotted when you use the shape aesthetic.
+```
+By default, additional groups will go unplotted when you use the shape aesthetic.
 
